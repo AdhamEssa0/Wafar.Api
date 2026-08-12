@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using Wafar.Infrastructure.Migrations.Data.Migration;
+
 namespace Wafar.Api
 {
     public class Program
@@ -7,6 +10,11 @@ namespace Wafar.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection"),
+                    sql => sql.EnableRetryOnFailure()
+                    ));
             // Add services to the container.
 
             builder.Services.AddControllers();
