@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Wafar.Api/Wafar.Api.csproj" />
+  <Project Path="Wafar.Application/Wafar.Application.csproj" />
+  <Project Path="Wafar.Domain/Wafar.Domain.csproj" />
+  <Project Path="Wafar.Infrastructure/Wafar.Infrastructure.csproj" />
+</Solution>
