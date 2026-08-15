@@ -1,9 +1,9 @@
-﻿using CodeKhasm.Domain.Entities;
-using CodeKhasm.Domain.Entities.Catalog;
-using CodeKhasm.Domain.Entities.Coupons;
-using CodeKhasm.Domain.Entities.Qr;
-using CodeKhasm.Domain.Entities.Rewards;
-using CodeKhasm.Domain.Enum;
+﻿using Wafar.Domain.Entities;
+using Wafar.Domain.Entities.Catalog;
+using Wafar.Domain.Entities.Coupons;
+using Wafar.Domain.Entities.Qr;
+using Wafar.Domain.Entities.Rewards;
+using Wafar.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

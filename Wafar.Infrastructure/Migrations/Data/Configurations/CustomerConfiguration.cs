@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeKhasm.Infrastructure.Data.Configurations
+namespace Wafar.Infrastructure.Data.Configurations
 {
     internal class CustomerConfiguration
     {

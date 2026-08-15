@@ -1,13 +1,13 @@
-﻿using CodeKhasm.Domain.Entities.Coupons;
-using CodeKhasm.Domain.Entities.Catalog;
-using CodeKhasm.Domain.Enum;
+﻿using Wafar.Domain.Entities.Coupons;
+using Wafar.Domain.Entities.Catalog;
+using Wafar.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeKhasm.Domain.Entities.Rewards
+namespace Wafar.Domain.Entities.Rewards
 {
     public class Reward
     {

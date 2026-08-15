@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeKhasm.Domain.Entities.Rewards
+namespace Wafar.Domain.Entities.Rewards
 {
     public class RewardCategory
     {

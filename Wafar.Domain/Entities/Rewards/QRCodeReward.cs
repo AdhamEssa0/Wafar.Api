@@ -1,11 +1,11 @@
-﻿using CodeKhasm.Domain.Entities.Qr;
+﻿using Wafar.Domain.Entities.Qr;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeKhasm.Domain.Entities.Rewards
+namespace Wafar.Domain.Entities.Rewards
 {
     public class QRCodeReward
     {

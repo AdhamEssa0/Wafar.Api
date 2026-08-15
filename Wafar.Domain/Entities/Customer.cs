@@ -1,11 +1,11 @@
-﻿using CodeKhasm.Domain.Entities.Coupons;
+﻿using Wafar.Domain.Entities.Coupons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeKhasm.Domain.Entities
+namespace Wafar.Domain.Entities
 {
     public class Customer
     {

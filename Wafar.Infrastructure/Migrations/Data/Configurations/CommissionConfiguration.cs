@@ -1,4 +1,4 @@
-﻿using CodeKhasm.Domain.Entities.Coupons;
+﻿using Wafar.Domain.Entities.Coupons;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeKhasm.Infrastructure.Data.Configurations
+namespace Wafar.Infrastructure.Data.Configurations
 {
     public class CommissionConfiguration : IEntityTypeConfiguration<Commission>
     {

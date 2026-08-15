@@ -1,12 +1,12 @@
-﻿using CodeKhasm.Domain.Entities.Coupons;
-using CodeKhasm.Domain.Entities.Qr;
+﻿using Wafar.Domain.Entities.Coupons;
+using Wafar.Domain.Entities.Qr;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeKhasm.Domain.Entities
+namespace Wafar.Domain.Entities
 {
     public class Branch
     {

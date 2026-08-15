@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeKhasm.Domain.Enum
+namespace Wafar.Domain.Enum
 {
     public enum CommissionStatus : byte
     {

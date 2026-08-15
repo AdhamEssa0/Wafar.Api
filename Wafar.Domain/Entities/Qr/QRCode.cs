@@ -1,13 +1,13 @@
-﻿using CodeKhasm.Domain.Entities.Coupons;
-using CodeKhasm.Domain.Entities.Rewards;
-using CodeKhasm.Domain.Enum;
+﻿using Wafar.Domain.Entities.Coupons;
+using Wafar.Domain.Entities.Rewards;
+using Wafar.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeKhasm.Domain.Entities.Qr
+namespace Wafar.Domain.Entities.Qr
 {
     public class QRCode
     {

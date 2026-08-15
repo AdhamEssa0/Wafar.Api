@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeKhasm.Domain.Entities.Qr
+namespace Wafar.Domain.Entities.Qr
 {
     public class QRCategory
     {

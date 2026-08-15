@@ -8,8 +8,8 @@ namespace Wafar.Infrastructure.Repositories
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>
         where TEntity : class
     {
-        private readonly AppDbContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly AppDbContext _context;
+        protected readonly DbSet<TEntity> _dbSet;
 
         public GenericRepository(AppDbContext context)
         {

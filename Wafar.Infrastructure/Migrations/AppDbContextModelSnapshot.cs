@@ -22,7 +22,7 @@ namespace Wafar.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Branch", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Branch", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,7 +51,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.ToTable("Branches");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Catalog.Accessory", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Catalog.Accessory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.ToTable("Accessories");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Catalog.Device", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Catalog.Device", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,7 +106,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.ToTable("Devices");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Catalog.MaintenanceService", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Catalog.MaintenanceService", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,7 +129,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.ToTable("MaintenanceServices");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Catalog.SparePart", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Catalog.SparePart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,7 +155,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.ToTable("SpareParts");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Coupons.Commission", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Coupons.Commission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -202,7 +202,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.ToTable("Commissions", (string)null);
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Coupons.Coupon", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Coupons.Coupon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -253,7 +253,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.ToTable("Coupons", (string)null);
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Coupons.CouponUsage", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Coupons.CouponUsage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -288,7 +288,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.ToTable("CouponUsages", (string)null);
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Coupons.ScanHistory", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Coupons.ScanHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -320,7 +320,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.ToTable("ScanHistories", (string)null);
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Customer", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -346,7 +346,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Partner", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Partner", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -394,7 +394,7 @@ namespace Wafar.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Qr.QRCategory", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Qr.QRCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -443,7 +443,7 @@ namespace Wafar.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Qr.QRCode", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Qr.QRCode", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -532,7 +532,7 @@ namespace Wafar.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Rewards.QRCodeReward", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Rewards.QRCodeReward", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -585,7 +585,7 @@ namespace Wafar.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Rewards.Reward", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Rewards.Reward", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -699,7 +699,7 @@ namespace Wafar.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Rewards.RewardCategory", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Rewards.RewardCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -733,7 +733,7 @@ namespace Wafar.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Role", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -762,7 +762,7 @@ namespace Wafar.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.User", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -821,21 +821,21 @@ namespace Wafar.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Coupons.Commission", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Coupons.Commission", b =>
                 {
-                    b.HasOne("CodeKhasm.Domain.Entities.Coupons.Coupon", "Coupon")
+                    b.HasOne("Wafar.Domain.Entities.Coupons.Coupon", "Coupon")
                         .WithOne("Commission")
-                        .HasForeignKey("CodeKhasm.Domain.Entities.Coupons.Commission", "CouponId")
+                        .HasForeignKey("Wafar.Domain.Entities.Coupons.Commission", "CouponId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Partner", "Partner")
+                    b.HasOne("Wafar.Domain.Entities.Partner", "Partner")
                         .WithMany("Commissions")
                         .HasForeignKey("PartnerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Qr.QRCode", "QRCode")
+                    b.HasOne("Wafar.Domain.Entities.Qr.QRCode", "QRCode")
                         .WithMany("Commissions")
                         .HasForeignKey("QRCodeId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -848,22 +848,22 @@ namespace Wafar.Infrastructure.Migrations
                     b.Navigation("QRCode");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Coupons.Coupon", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Coupons.Coupon", b =>
                 {
-                    b.HasOne("CodeKhasm.Domain.Entities.Customer", "Customer")
+                    b.HasOne("Wafar.Domain.Entities.Customer", "Customer")
                         .WithMany("Coupons")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Rewards.Reward", "Reward")
+                    b.HasOne("Wafar.Domain.Entities.Rewards.Reward", "Reward")
                         .WithMany("Coupons")
                         .HasForeignKey("RewardId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Coupons.ScanHistory", "ScanHistory")
+                    b.HasOne("Wafar.Domain.Entities.Coupons.ScanHistory", "ScanHistory")
                         .WithOne("Coupon")
-                        .HasForeignKey("CodeKhasm.Domain.Entities.Coupons.Coupon", "ScanHistoryId")
+                        .HasForeignKey("Wafar.Domain.Entities.Coupons.Coupon", "ScanHistoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -874,20 +874,20 @@ namespace Wafar.Infrastructure.Migrations
                     b.Navigation("ScanHistory");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Coupons.CouponUsage", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Coupons.CouponUsage", b =>
                 {
-                    b.HasOne("CodeKhasm.Domain.Entities.Branch", "Branch")
+                    b.HasOne("Wafar.Domain.Entities.Branch", "Branch")
                         .WithMany("CouponUsages")
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Coupons.Coupon", "Coupon")
+                    b.HasOne("Wafar.Domain.Entities.Coupons.Coupon", "Coupon")
                         .WithOne("CouponUsage")
-                        .HasForeignKey("CodeKhasm.Domain.Entities.Coupons.CouponUsage", "CouponId")
+                        .HasForeignKey("Wafar.Domain.Entities.Coupons.CouponUsage", "CouponId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CodeKhasm.Domain.Entities.User", "UsedByUser")
+                    b.HasOne("Wafar.Domain.Entities.User", "UsedByUser")
                         .WithMany("CouponUsages")
                         .HasForeignKey("UsedByUserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -900,14 +900,14 @@ namespace Wafar.Infrastructure.Migrations
                     b.Navigation("UsedByUser");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Coupons.ScanHistory", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Coupons.ScanHistory", b =>
                 {
-                    b.HasOne("CodeKhasm.Domain.Entities.Customer", "Customer")
+                    b.HasOne("Wafar.Domain.Entities.Customer", "Customer")
                         .WithMany("ScanHistories")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Qr.QRCode", "QRCode")
+                    b.HasOne("Wafar.Domain.Entities.Qr.QRCode", "QRCode")
                         .WithMany("ScanHistories")
                         .HasForeignKey("QRCodeId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -918,19 +918,19 @@ namespace Wafar.Infrastructure.Migrations
                     b.Navigation("QRCode");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Qr.QRCode", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Qr.QRCode", b =>
                 {
-                    b.HasOne("CodeKhasm.Domain.Entities.Branch", "Branch")
+                    b.HasOne("Wafar.Domain.Entities.Branch", "Branch")
                         .WithMany("QRCodes")
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Partner", "Partner")
+                    b.HasOne("Wafar.Domain.Entities.Partner", "Partner")
                         .WithMany("QRCodes")
                         .HasForeignKey("PartnerId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Qr.QRCategory", "QRCategory")
+                    b.HasOne("Wafar.Domain.Entities.Qr.QRCategory", "QRCategory")
                         .WithMany("QRCodes")
                         .HasForeignKey("QRCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -943,15 +943,15 @@ namespace Wafar.Infrastructure.Migrations
                     b.Navigation("QRCategory");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Rewards.QRCodeReward", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Rewards.QRCodeReward", b =>
                 {
-                    b.HasOne("CodeKhasm.Domain.Entities.Qr.QRCode", "QRCode")
+                    b.HasOne("Wafar.Domain.Entities.Qr.QRCode", "QRCode")
                         .WithMany("QRCodeRewards")
                         .HasForeignKey("QRCodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Rewards.Reward", "Reward")
+                    b.HasOne("Wafar.Domain.Entities.Rewards.Reward", "Reward")
                         .WithMany("QRCodeRewards")
                         .HasForeignKey("RewardId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -962,30 +962,30 @@ namespace Wafar.Infrastructure.Migrations
                     b.Navigation("Reward");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Rewards.Reward", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Rewards.Reward", b =>
                 {
-                    b.HasOne("CodeKhasm.Domain.Entities.Catalog.Accessory", "Accessory")
+                    b.HasOne("Wafar.Domain.Entities.Catalog.Accessory", "Accessory")
                         .WithMany("Rewards")
                         .HasForeignKey("AccessoryId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Catalog.Device", "Device")
+                    b.HasOne("Wafar.Domain.Entities.Catalog.Device", "Device")
                         .WithMany("Rewards")
                         .HasForeignKey("DeviceId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Catalog.MaintenanceService", "MaintenanceService")
+                    b.HasOne("Wafar.Domain.Entities.Catalog.MaintenanceService", "MaintenanceService")
                         .WithMany("Rewards")
                         .HasForeignKey("MaintenanceServiceId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Rewards.RewardCategory", "RewardCategory")
+                    b.HasOne("Wafar.Domain.Entities.Rewards.RewardCategory", "RewardCategory")
                         .WithMany("Rewards")
                         .HasForeignKey("RewardCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Catalog.SparePart", "SparePart")
+                    b.HasOne("Wafar.Domain.Entities.Catalog.SparePart", "SparePart")
                         .WithMany("Rewards")
                         .HasForeignKey("SparePartId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -1001,13 +1001,13 @@ namespace Wafar.Infrastructure.Migrations
                     b.Navigation("SparePart");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.User", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.User", b =>
                 {
-                    b.HasOne("CodeKhasm.Domain.Entities.Branch", "Branch")
+                    b.HasOne("Wafar.Domain.Entities.Branch", "Branch")
                         .WithMany("Users")
                         .HasForeignKey("BranchId");
 
-                    b.HasOne("CodeKhasm.Domain.Entities.Role", "Role")
+                    b.HasOne("Wafar.Domain.Entities.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1018,7 +1018,7 @@ namespace Wafar.Infrastructure.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Branch", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Branch", b =>
                 {
                     b.Navigation("CouponUsages");
 
@@ -1027,58 +1027,58 @@ namespace Wafar.Infrastructure.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Catalog.Accessory", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Catalog.Accessory", b =>
                 {
                     b.Navigation("Rewards");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Catalog.Device", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Catalog.Device", b =>
                 {
                     b.Navigation("Rewards");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Catalog.MaintenanceService", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Catalog.MaintenanceService", b =>
                 {
                     b.Navigation("Rewards");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Catalog.SparePart", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Catalog.SparePart", b =>
                 {
                     b.Navigation("Rewards");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Coupons.Coupon", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Coupons.Coupon", b =>
                 {
                     b.Navigation("Commission");
 
                     b.Navigation("CouponUsage");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Coupons.ScanHistory", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Coupons.ScanHistory", b =>
                 {
                     b.Navigation("Coupon");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Customer", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Customer", b =>
                 {
                     b.Navigation("Coupons");
 
                     b.Navigation("ScanHistories");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Partner", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Partner", b =>
                 {
                     b.Navigation("Commissions");
 
                     b.Navigation("QRCodes");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Qr.QRCategory", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Qr.QRCategory", b =>
                 {
                     b.Navigation("QRCodes");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Qr.QRCode", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Qr.QRCode", b =>
                 {
                     b.Navigation("Commissions");
 
@@ -1087,24 +1087,24 @@ namespace Wafar.Infrastructure.Migrations
                     b.Navigation("ScanHistories");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Rewards.Reward", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Rewards.Reward", b =>
                 {
                     b.Navigation("Coupons");
 
                     b.Navigation("QRCodeRewards");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Rewards.RewardCategory", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Rewards.RewardCategory", b =>
                 {
                     b.Navigation("Rewards");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.Role", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.Role", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("CodeKhasm.Domain.Entities.User", b =>
+            modelBuilder.Entity("Wafar.Domain.Entities.User", b =>
                 {
                     b.Navigation("CouponUsages");
                 });
