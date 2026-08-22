@@ -48,7 +48,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Branches");
+                    b.ToTable("Branches", (string)null);
                 });
 
             modelBuilder.Entity("Wafar.Domain.Entities.Catalog.Accessory", b =>
@@ -74,7 +74,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accessories");
+                    b.ToTable("Accessories", (string)null);
                 });
 
             modelBuilder.Entity("Wafar.Domain.Entities.Catalog.Device", b =>
@@ -103,7 +103,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Devices");
+                    b.ToTable("Devices", (string)null);
                 });
 
             modelBuilder.Entity("Wafar.Domain.Entities.Catalog.MaintenanceService", b =>
@@ -126,7 +126,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MaintenanceServices");
+                    b.ToTable("MaintenanceServices", (string)null);
                 });
 
             modelBuilder.Entity("Wafar.Domain.Entities.Catalog.SparePart", b =>
@@ -152,7 +152,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SpareParts");
+                    b.ToTable("SpareParts", (string)null);
                 });
 
             modelBuilder.Entity("Wafar.Domain.Entities.Coupons.Commission", b =>
@@ -343,7 +343,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("Wafar.Domain.Entities.Partner", b =>
@@ -379,7 +379,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Partners");
+                    b.ToTable("Partners", (string)null);
 
                     b.HasData(
                         new
@@ -408,7 +408,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("QRCategories");
+                    b.ToTable("QRCategories", (string)null);
 
                     b.HasData(
                         new
@@ -713,7 +713,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RewardCategories");
+                    b.ToTable("RewardCategories", (string)null);
 
                     b.HasData(
                         new
@@ -747,7 +747,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -806,7 +806,7 @@ namespace Wafar.Infrastructure.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new

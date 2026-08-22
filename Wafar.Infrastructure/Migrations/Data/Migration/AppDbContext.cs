@@ -203,7 +203,7 @@ namespace Wafar.Infrastructure.Migrations.Data.Migration
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(
             typeof(AppDbContext).Assembly);
-
         }
     }
 }
+

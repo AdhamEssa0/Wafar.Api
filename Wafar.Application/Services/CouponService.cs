@@ -75,7 +75,6 @@ namespace Wafar.Application.Services
             {
                 QRCodeId = qr.Id,
                 CustomerId = customerId,
-                Id = selectedReward.Id,
                 IPAddress = ipAddress,
                 DeviceInfo = deviceInfo,
                 ScanDate = DateTime.UtcNow

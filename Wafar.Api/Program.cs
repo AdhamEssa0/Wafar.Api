@@ -24,6 +24,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // ============ Application Services ============
 builder.Services.AddScoped<IRewardSelectionService, RewardSelectionService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<IRewardService, RewardService>();
 // ============ Controllers + Swagger ============
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
