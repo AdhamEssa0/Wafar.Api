@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Wafar.Api.BackgroundJobs;
 using Wafar.Application.Interfaces;
 using Wafar.Application.Services;
 using Wafar.Domain.Contracts;
@@ -30,6 +31,8 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IPartnerService, PartnerService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<CouponExpiryService>();
+builder.Services.AddHostedService<CouponExpiryWorker>();
 // ============ Controllers + Swagger ============
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
