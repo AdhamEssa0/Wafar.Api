@@ -51,11 +51,20 @@ namespace Wafar.Application.Extensions
         // بدل ICouponRepository.GetExpiredActiveCouponsAsync
         public static async Task<IReadOnlyList<Coupon>> GetExpiredActiveCouponsAsync(
             this IGenericRepository<Coupon> repo)
-        {
-            return await repo.Query()
-                .Where(c => c.Status == CouponStatus.Active
-                         && c.ExpirationDate < DateTime.UtcNow)
-                .ToListAsync();
-        }
+                {
+                    return await repo.Query()
+                        .Where(c => c.Status == CouponStatus.Active
+                                 && c.ExpirationDate < DateTime.UtcNow)
+                        .ToListAsync();
+                }
+
+        public static Task<Coupon?> GetByUniqueCodeAsync(
+            this IGenericRepository<Coupon> repo, string uniqueCode)
+                {
+                    return repo.Query()
+                        .Include(c => c.Reward)
+                        .Include(c => c.ScanHistory)
+                        .SingleOrDefaultAsync(c => c.UniqueCode == uniqueCode);
+                }
     }
 }

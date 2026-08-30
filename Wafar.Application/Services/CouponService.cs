@@ -121,10 +121,90 @@ namespace Wafar.Application.Services
 
             return new string(chars);
         }
+            public async Task<CouponRedeemResultDto> RedeemCouponAsync(
+                string uniqueCode, int usedByUserId, int? branchId)
+                    {
+                        var couponRepo = _unitOfWork.GetRepository<Coupon>();
 
-        public Task<CouponRedeemResultDto> RedeemCouponAsync(string uniqueCode, int usedByUserId, int? branchId)
-        {
-            throw new NotImplementedException();
-        }
+                        var coupon = await couponRepo.GetByUniqueCodeAsync(uniqueCode);
+                        if (coupon == null)
+                        {
+                            return new CouponRedeemResultDto
+                            {
+                                Success = false,
+                                Message = "الكود ده غير موجود."
+                            };
+                        }
+
+                        if (coupon.IsUsed || coupon.Status == CouponStatus.Used)
+                        {
+                            return new CouponRedeemResultDto
+                            {
+                                Success = false,
+                                Message = "الكود ده مستخدم بالفعل."
+                            };
+                        }
+
+                        if (coupon.ExpirationDate < DateTime.UtcNow)
+                        {
+                            coupon.Status = CouponStatus.Expired;
+                            couponRepo.Update(coupon);
+                            await _unitOfWork.SaveChangesAsync();
+
+                            return new CouponRedeemResultDto
+                            {
+                                Success = false,
+                                Message = "الكود ده منتهي الصلاحية."
+                            };
+                        }
+
+                        var usageRepo = _unitOfWork.GetRepository<CouponUsage>();
+                        var usage = new CouponUsage
+                        {
+                            CouponId = coupon.Id,
+                            UsedByUserId = usedByUserId,
+                            BranchId = branchId,
+                            UsageDate = DateTime.UtcNow
+                        };
+                        usageRepo.Add(usage);
+
+                        coupon.IsUsed = true;
+                        coupon.Status = CouponStatus.Used;
+                        couponRepo.Update(coupon);
+
+                        decimal? commissionAmount = null;
+
+                        var qrRepo = _unitOfWork.GetRepository<QRCode>();
+                        var qr = await qrRepo.GetByIdAsync(coupon.ScanHistory.QRCodeId);
+
+                        if (qr?.PartnerId != null && qr.CommissionType != null && qr.CommissionValue != null)
+                        {
+                            commissionAmount = qr.CommissionType == CommissionType.Percentage
+                                ? (coupon.Reward.DiscountValue ?? 0) * qr.CommissionValue.Value / 100
+                                : qr.CommissionValue.Value;
+
+                            var commissionRepo = _unitOfWork.GetRepository<Commission>();
+                            commissionRepo.Add(new Commission
+                            {
+                                CommissionType = qr.CommissionType.Value,
+                                CommissionValue = qr.CommissionValue.Value,
+                                CalculatedAmount = commissionAmount.Value,
+                                Status = CommissionStatus.Pending,
+                                PartnerId = qr.PartnerId.Value,
+                                QRCodeId = qr.Id,
+                                CouponId = coupon.Id
+                            });
+                        }
+
+                        await _unitOfWork.SaveChangesAsync();
+
+                        return new CouponRedeemResultDto
+                        {
+                            Success = true,
+                            Message = "تم تفعيل الكوبون بنجاح.",
+                            RewardName = coupon.Reward.RewardName,
+                            CommissionAmount = commissionAmount
+                        };
+            }
     }
 }
