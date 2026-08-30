@@ -1,10 +1,12 @@
-﻿using Wafar.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Wafar.Application.Interfaces;
 
 namespace Wafar.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Staff,Admin")]
     public class CouponController : ControllerBase
     {
         private readonly ICouponService _couponService;

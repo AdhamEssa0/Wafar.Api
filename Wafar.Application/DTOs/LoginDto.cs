@@ -8,6 +8,7 @@ namespace Wafar.Application.DTOs
 {
     public class LoginDto
     {
-        public string Phone { get; set; } = null!;
+        public string Username { get; set; } = null!;
+        public string Password { get; set; } = null!;
     }
 }

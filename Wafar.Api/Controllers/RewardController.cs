@@ -1,11 +1,13 @@
-﻿using Wafar.Application.DTOs;
-using Wafar.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Wafar.Application.DTOs;
+using Wafar.Application.Interfaces;
 
 namespace Wafar.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
     public class RewardController : ControllerBase
     {
         private readonly IRewardService _rewardService;

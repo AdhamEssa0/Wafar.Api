@@ -28,6 +28,8 @@ builder.Services.AddScoped<IRewardService, RewardService>();
 builder.Services.AddScoped<IQRCodeService, QRCodeService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IPartnerService, PartnerService>();
+builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 // ============ Controllers + Swagger ============
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
