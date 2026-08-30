@@ -27,6 +27,7 @@ builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<IRewardService, RewardService>();
 builder.Services.AddScoped<IQRCodeService, QRCodeService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IPartnerService, PartnerService>();
 // ============ Controllers + Swagger ============
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
