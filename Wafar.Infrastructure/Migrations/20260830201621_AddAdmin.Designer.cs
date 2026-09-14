@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wafar.Infrastructure.Migrations.Data.Migration;
 
@@ -11,9 +12,11 @@ using Wafar.Infrastructure.Migrations.Data.Migration;
 namespace Wafar.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260830201621_AddAdmin")]
+    partial class AddAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -582,24 +585,6 @@ namespace Wafar.Infrastructure.Migrations
                             Id = 4,
                             QRCodeId = 1,
                             RewardId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            QRCodeId = 1,
-                            RewardId = 5
-                        },
-                        new
-                        {
-                            Id = 6,
-                            QRCodeId = 1,
-                            RewardId = 6
-                        },
-                        new
-                        {
-                            Id = 7,
-                            QRCodeId = 1,
-                            RewardId = 7
                         });
                 });
 
@@ -714,40 +699,6 @@ namespace Wafar.Infrastructure.Migrations
                             RewardCategoryId = 1,
                             RewardName = "خصم 50 جنيه على أي إكسسوار",
                             RewardType = (byte)2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDays = 7,
-                            IsActive = true,
-                            ProbabilityPercentage = 100m,
-                            RewardCategoryId = 4,
-                            RewardName = "فحص مجاني للجهاز",
-                            RewardType = (byte)6
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DiscountValue = 15m,
-                            ExpirationDays = 7,
-                            IsActive = true,
-                            ProbabilityPercentage = 100m,
-                            RewardCategoryId = 5,
-                            RewardName = "خصم 15% على الأجهزة",
-                            RewardType = (byte)1
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDays = 14,
-                            IsActive = true,
-                            ProbabilityPercentage = 100m,
-                            RewardCategoryId = 6,
-                            RewardName = "اسكرينة حماية مجانية",
-                            RewardType = (byte)4
                         });
                 });
 
@@ -782,21 +733,6 @@ namespace Wafar.Infrastructure.Migrations
                         {
                             Id = 3,
                             Name = "FreeServices"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "صيانة"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "أجهزة"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "إكسسوارات"
                         });
                 });
 

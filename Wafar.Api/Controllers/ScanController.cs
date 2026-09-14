@@ -17,16 +17,20 @@ namespace Wafar.Api.Controllers
         }
         [HttpPost("{qrCode}")]
         [EnableRateLimiting("ScanPolicy")]
-        public async Task<IActionResult> Scan(string qrCode, [FromQuery] int? customerId)
+        public async Task<IActionResult> Scan(string qrCode, [FromQuery] int? customerId, [FromQuery] int? categoryId)
         {
             var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
             var deviceInfo = Request.Headers.UserAgent.ToString();
-
-            var result = await _couponService.ProcessScanAsync(qrCode, customerId, ipAddress, deviceInfo);
-            if (!result.Success)
-                return BadRequest(result);
-
+            var result = await _couponService.ProcessScanAsync(qrCode, customerId, ipAddress, deviceInfo, categoryId);
             return Ok(result);
-        } 
-    }
+        }
+
+        [HttpGet("{qrCode}/categories")]
+        public async Task<IActionResult> GetCategories(string qrCode)
+        {
+            var categories = await _couponService.GetAvailableCategoriesAsync(qrCode);
+            return Ok(categories);
+        }
+    } 
+    
 }

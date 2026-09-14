@@ -14,6 +14,7 @@ namespace Wafar.Application.Interfaces
     public class AuthResultDto
     {
         public string Token { get; set; } = null!;
+        public int UserId { get; set; }
         public string FullName { get; set; } = null!;
         public string Role { get; set; } = null!;
         public DateTime ExpiresAt { get; set; }

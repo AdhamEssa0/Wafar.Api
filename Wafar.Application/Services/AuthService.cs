@@ -45,6 +45,7 @@ namespace Wafar.Application.Services
             return new AuthResultDto
             {
                 Token = token,
+                UserId = user.Id,
                 FullName = user.FullName,
                 Role = user.Role.Name,
                 ExpiresAt = expiresAt

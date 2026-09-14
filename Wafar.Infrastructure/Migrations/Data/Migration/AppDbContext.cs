@@ -197,6 +197,49 @@ namespace Wafar.Infrastructure.Migrations.Data.Migration
                     CreatedAt = new DateTime(2026, 1, 1)
                 }
             );
+            // تصنيفات جديدة يختار منها العميل
+            modelBuilder.Entity<RewardCategory>().HasData(
+                new RewardCategory { Id = 4, Name = "صيانة" },
+                new RewardCategory { Id = 5, Name = "أجهزة" },
+                new RewardCategory { Id = 6, Name = "إكسسوارات" }
+            );
+
+            // مكافأة واحدة على الأقل لكل تصنيف جديد
+            modelBuilder.Entity<Reward>().HasData(
+                new Reward { Id = 5, RewardCategoryId = 4, RewardType = RewardType.FreeMaintenanceService, RewardName = "فحص مجاني للجهاز", ProbabilityPercentage = 100, IsActive = true, ExpirationDays = 7, CreatedAt = new DateTime(2026, 1, 1) },
+                new Reward { Id = 6, RewardCategoryId = 5, RewardType = RewardType.DiscountPercentage, RewardName = "خصم 15% على الأجهزة", DiscountValue = 15, ProbabilityPercentage = 100, IsActive = true, ExpirationDays = 7, CreatedAt = new DateTime(2026, 1, 1) },
+                new Reward { Id = 7, RewardCategoryId = 6, RewardType = RewardType.FreeScreenProtector, RewardName = "اسكرينة حماية مجانية", ProbabilityPercentage = 100, IsActive = true, ExpirationDays = 14, CreatedAt = new DateTime(2026, 1, 1) }
+            );
+
+            // ربطها بالـ QR الرئيسي
+            modelBuilder.Entity<QRCodeReward>().HasData(
+                new QRCodeReward { Id = 5, QRCodeId = 1, RewardId = 5 },
+                new QRCodeReward { Id = 6, QRCodeId = 1, RewardId = 6 },
+                new QRCodeReward { Id = 7, QRCodeId = 1, RewardId = 7 }
+            );
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 4,
+                    FullName = "Cashier Test",
+                    Username = "cashier1",
+                    PasswordHash = "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",
+                    RoleId = 2, // Staff
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 1, 1)
+                },
+                new User
+                {
+                    Id = 5,
+                    FullName = "Admin Test",
+                    Username = "admin1",
+                    PasswordHash = "JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=",
+                    RoleId = 1, // Admin
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 1, 1)
+                }
+            );
 
             #endregion
 

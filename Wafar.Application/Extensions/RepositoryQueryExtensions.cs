@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Wafar.Application.DTOs;
 using Wafar.Domain.Commen;
 using Wafar.Domain.Entities.Coupons;
 using Wafar.Domain.Entities.Qr;
@@ -65,6 +66,25 @@ namespace Wafar.Application.Extensions
                         .Include(c => c.Reward)
                         .Include(c => c.ScanHistory)
                         .SingleOrDefaultAsync(c => c.UniqueCode == uniqueCode);
+                }
+
+        public static async Task<List<RewardCategoryOptionDto>> GetAvailableCategoriesAsync(
+            this IGenericRepository<QRCode> repo, string code)
+                {
+                    var qr = await repo.Query()
+                        .Include(q => q.QRCodeRewards)
+                            .ThenInclude(qcr => qcr.Reward)
+                                .ThenInclude(r => r.RewardCategory)
+                        .SingleOrDefaultAsync(q => q.Code == code);
+
+                    if (qr == null) return new List<RewardCategoryOptionDto>();
+
+                    return qr.QRCodeRewards
+                        .Where(l => l.Reward.IsActive)
+                        .Select(l => l.Reward.RewardCategory)
+                        .GroupBy(c => c.Id)
+                        .Select(g => new RewardCategoryOptionDto { Id = g.Key, Name = g.First().Name })
+                        .ToList();
                 }
     }
 }
