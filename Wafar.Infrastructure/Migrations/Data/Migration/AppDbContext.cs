@@ -182,7 +182,8 @@ namespace Wafar.Infrastructure.Migrations.Data.Migration
             // 7) موظف تجريبي (لتفعيل الكوبونات)
             modelBuilder.Entity<Role>().HasData(
                 new Role { Id = 1, Name = "Admin" },
-                new Role { Id = 2, Name = "Staff" }
+                new Role { Id = 2, Name = "Staff" },
+                new Role { Id = 3, Name = "SuperAdmin"}
             );
 
             modelBuilder.Entity<User>().HasData(
@@ -236,6 +237,16 @@ namespace Wafar.Infrastructure.Migrations.Data.Migration
                     Username = "admin1",
                     PasswordHash = "JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=",
                     RoleId = 1, // Admin
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 1, 1)
+                },
+                new User
+                {
+                    Id = 6,
+                    FullName = "Super Admin",
+                    Username = "superAdmin",
+                    PasswordHash = "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",
+                    RoleId = 3, // SuperAdmin
                     IsActive = true,
                     CreatedAt = new DateTime(2026, 1, 1)
                 }

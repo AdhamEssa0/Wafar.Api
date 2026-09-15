@@ -7,7 +7,7 @@ namespace Wafar.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class QRCodeController : ControllerBase
     {
         private readonly IQRCodeService _qrCodeService;

@@ -6,7 +6,7 @@ namespace Wafar.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Staff,Admin")]
+    [Authorize(Roles = "Staff,Admin,SuperAdmin")]
     public class CouponController : ControllerBase
     {
         private readonly ICouponService _couponService;

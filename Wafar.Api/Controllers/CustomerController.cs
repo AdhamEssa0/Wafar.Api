@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Wafar.Application.DTOs;
 using Wafar.Application.Interfaces;
@@ -7,6 +8,8 @@ namespace Wafar.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,SuperAdmin")]
+
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
