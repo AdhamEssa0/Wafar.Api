@@ -33,6 +33,7 @@ namespace Wafar.Infrastructure.Repositories
                 .Include(c => c.ScanHistory)
                     .ThenInclude(s => s.QRCode)
                 .Include(c => c.CouponUsage)
+                    .ThenInclude(cu => cu.UsedByUser)
                 .OrderByDescending(c => c.IssueDate)
                 .ToListAsync();
     }

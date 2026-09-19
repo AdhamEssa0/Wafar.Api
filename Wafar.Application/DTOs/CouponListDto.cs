@@ -16,6 +16,7 @@ namespace Wafar.Application.DTOs
         // بيانات الاستخدام
         public DateTime? UsageDate { get; set; }
         public int? UsedByUserId { get; set; }
+        public string? UsedByUserName { get; set; }
         public int? BranchId { get; set; }
     }
 }

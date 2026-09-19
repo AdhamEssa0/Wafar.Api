@@ -253,6 +253,7 @@ namespace Wafar.Application.Services
                 CustomerName = c.Customer?.FullName,
                 UsageDate = c.CouponUsage?.UsageDate,
                 UsedByUserId = c.CouponUsage?.UsedByUserId,
+                UsedByUserName = c.CouponUsage?.UsedByUser?.FullName,
                 BranchId = c.CouponUsage?.BranchId
             }).ToList();
         }
