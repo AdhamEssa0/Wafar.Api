@@ -1,6 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using Wafar.Domain.Commen;
 using Wafar.Domain.Contracts;
+using Wafar.Domain.Entities.Coupons;
+using Wafar.Domain.Interface;
 using Wafar.Infrastructure.Migrations.Data.Migration;
 
 namespace Wafar.Infrastructure.Repositories
@@ -9,8 +11,6 @@ namespace Wafar.Infrastructure.Repositories
     {
         private readonly AppDbContext _context;
 
-        // بيحفظ الريبو بعد أول مرة يتعمل، عشان لو نفس الـ Entity اتطلبت
-        // تاني في نفس الـ Request ماتتعملش من جديد كل مرة
         private readonly ConcurrentDictionary<Type, object> _repositories = new();
 
         public UnitOfWork(AppDbContext context)
@@ -26,11 +26,24 @@ namespace Wafar.Infrastructure.Repositories
             if (_repositories.TryGetValue(type, out var existingRepo))
                 return (IGenericRepository<TEntity>)existingRepo;
 
-            var newRepo = new GenericRepository<TEntity>(_context);
+            object newRepo;
+
+            if (type == typeof(Coupon))
+            {
+                newRepo = new CouponRepository(_context);
+            }
+            else
+            {
+                newRepo = new GenericRepository<TEntity>(_context);
+            }
+
             _repositories[type] = newRepo;
 
-            return newRepo;
+            return (IGenericRepository<TEntity>)newRepo;
         }
+
+        public ICouponRepository CouponRepository
+            => (ICouponRepository)GetRepository<Coupon>();
 
         public async Task<int> SaveChangesAsync(CancellationToken ct = default)
             => await _context.SaveChangesAsync(ct);

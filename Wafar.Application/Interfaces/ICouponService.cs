@@ -1,4 +1,5 @@
 ﻿using Wafar.Application.DTOs;
+using Wafar.Domain.Entities.Coupons;
 
 namespace Wafar.Application.Interfaces
 {
@@ -11,5 +12,6 @@ namespace Wafar.Application.Interfaces
             string uniqueCode, int usedByUserId, int? branchId);
 
         Task<List<RewardCategoryOptionDto>> GetAvailableCategoriesAsync(string qrCode);
+        Task<IReadOnlyList<Coupon>> GetAllWithDetailsAsync();
     }
 }

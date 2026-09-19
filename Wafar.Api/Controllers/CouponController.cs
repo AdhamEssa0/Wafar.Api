@@ -16,6 +16,14 @@ namespace Wafar.Api.Controllers
             _couponService = couponService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var coupons = await _couponService.GetAllWithDetailsAsync();
+
+            return Ok(coupons);
+        }
+
         [HttpPost("redeem")]
         public async Task<IActionResult> Redeem(
             [FromQuery] string uniqueCode,

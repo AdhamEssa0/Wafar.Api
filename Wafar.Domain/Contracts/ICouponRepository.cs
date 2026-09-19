@@ -17,5 +17,6 @@ namespace Wafar.Domain.Interface
 
         // كل كوبونات عميل معين
         Task<IReadOnlyList<Coupon>> GetByCustomerAsync(int customerId);
+        Task<IReadOnlyList<Coupon>> GetAllWithDetailsAsync();
     }
 }

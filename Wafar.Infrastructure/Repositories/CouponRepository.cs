@@ -24,5 +24,15 @@ namespace Wafar.Infrastructure.Repositories
 
         public async Task<IReadOnlyList<Coupon>> GetByCustomerAsync(int customerId)
             => await FindAsync(c => c.CustomerId == customerId);
+
+        public async Task<IReadOnlyList<Coupon>> GetAllWithDetailsAsync()
+            => await Query()
+                .Include(c => c.Reward)
+                .Include(c => c.Customer)
+                .Include(c => c.ScanHistory)
+                    .ThenInclude(s => s.QRCode)
+                .Include(c => c.CouponUsage)
+                .OrderByDescending(c => c.IssueDate)
+                .ToListAsync();
     }
 }

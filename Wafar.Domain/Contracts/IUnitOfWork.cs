@@ -1,4 +1,5 @@
 ﻿using Wafar.Domain.Commen;
+using Wafar.Domain.Interface;
 
 namespace Wafar.Domain.Contracts
 {
@@ -8,5 +9,7 @@ namespace Wafar.Domain.Contracts
 
         IGenericRepository<TEntity> GetRepository<TEntity>()
             where TEntity : class;
+
+        ICouponRepository CouponRepository { get; }
     }
 }

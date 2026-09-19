@@ -48,6 +48,7 @@ namespace Wafar.Application.Services
             };
 
             repo.Add(reward);
+
             await _unitOfWork.SaveChangesAsync();
 
             return ToDto(reward);
@@ -56,7 +57,9 @@ namespace Wafar.Application.Services
         public async Task<bool> UpdateAsync(int id, UpdateRewardDto dto)
         {
             var repo = _unitOfWork.GetRepository<Reward>();
+
             var reward = await repo.GetByIdAsync(id);
+
             if (reward == null)
                 return false;
 
@@ -70,6 +73,7 @@ namespace Wafar.Application.Services
             reward.RewardCategoryId = dto.RewardCategoryId;
 
             repo.Update(reward);
+
             await _unitOfWork.SaveChangesAsync();
 
             return true;
@@ -78,11 +82,19 @@ namespace Wafar.Application.Services
         public async Task<bool> DeleteAsync(int id)
         {
             var repo = _unitOfWork.GetRepository<Reward>();
+
             var reward = await repo.GetByIdAsync(id);
+
             if (reward == null)
                 return false;
 
-            repo.Remove(reward);
+            // Soft Delete:
+            // لا نحذف الـ Reward من قاعدة البيانات
+            // حتى لا نكسر الـ Foreign Key الخاص بالـ Coupons.
+            reward.IsActive = false;
+
+            repo.Update(reward);
+
             await _unitOfWork.SaveChangesAsync();
 
             return true;

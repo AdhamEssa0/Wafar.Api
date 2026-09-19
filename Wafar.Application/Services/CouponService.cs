@@ -234,5 +234,12 @@ namespace Wafar.Application.Services
 
             return new string(chars);
         }
+
+        public async Task<IReadOnlyList<Coupon>> GetAllWithDetailsAsync()
+        {
+            var couponRepo = _unitOfWork.CouponRepository;
+
+            return await couponRepo.GetAllWithDetailsAsync();
+        }
     }
 }
