@@ -11,9 +11,10 @@ namespace Wafar.Infrastructure.Repositories
         public CouponRepository(AppDbContext context) : base(context) { }
 
         public async Task<Coupon?> GetByUniqueCodeAsync(string uniqueCode)
-            => await Query()
-                .SingleOrDefaultAsync(c => c.UniqueCode == uniqueCode);
-
+         => await Query()
+             .Include(c => c.Reward)
+             .Include(c => c.ScanHistory)
+             .SingleOrDefaultAsync(c => c.UniqueCode == uniqueCode);
         public async Task<bool> ExistsWithCodeAsync(string uniqueCode)
             => await AnyAsync(c => c.UniqueCode == uniqueCode);
 

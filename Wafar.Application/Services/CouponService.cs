@@ -235,11 +235,26 @@ namespace Wafar.Application.Services
             return new string(chars);
         }
 
-        public async Task<IReadOnlyList<Coupon>> GetAllWithDetailsAsync()
+        public async Task<IReadOnlyList<CouponListDto>> GetAllWithDetailsAsync()
         {
             var couponRepo = _unitOfWork.CouponRepository;
 
-            return await couponRepo.GetAllWithDetailsAsync();
+            var coupons = await couponRepo.GetAllWithDetailsAsync();
+
+            return coupons.Select(c => new CouponListDto
+            {
+                Id = c.Id,
+                UniqueCode = c.UniqueCode,
+                IssueDate = c.IssueDate,
+                ExpirationDate = c.ExpirationDate,
+                IsUsed = c.IsUsed,
+                Status = c.Status.ToString(),
+                RewardName = c.Reward?.RewardName,
+                CustomerName = c.Customer?.FullName,
+                UsageDate = c.CouponUsage?.UsageDate,
+                UsedByUserId = c.CouponUsage?.UsedByUserId,
+                BranchId = c.CouponUsage?.BranchId
+            }).ToList();
         }
     }
 }

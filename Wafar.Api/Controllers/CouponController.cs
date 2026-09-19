@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wafar.Application.Interfaces;
+using System.Security.Claims;
 
 namespace Wafar.Api.Controllers
 {
@@ -27,15 +28,22 @@ namespace Wafar.Api.Controllers
         [HttpPost("redeem")]
         public async Task<IActionResult> Redeem(
             [FromQuery] string uniqueCode,
-            [FromQuery] int usedByUserId,
             [FromQuery] int? branchId)
-        {
-            var result = await _couponService.RedeemCouponAsync(uniqueCode, usedByUserId, branchId);
+                {
+                    var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (!result.Success)
-                return BadRequest(result);
+                    if (!int.TryParse(userIdClaim, out var usedByUserId))
+                        return Unauthorized();
 
-            return Ok(result);
-        }
+                    var result = await _couponService.RedeemCouponAsync(
+                        uniqueCode,
+                        usedByUserId,
+                        branchId);
+
+                    if (!result.Success)
+                        return BadRequest(result);
+
+                    return Ok(result);
+                }
     }
 }
