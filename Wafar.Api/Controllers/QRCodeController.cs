@@ -55,5 +55,24 @@ namespace Wafar.Api.Controllers
             var toggled = await _qrCodeService.ToggleActiveAsync(id);
             return toggled ? NoContent() : NotFound();
         }
+        [HttpGet("{id}/rewards")]
+        public async Task<IActionResult> GetRewards(int id)
+        {
+            var rewards = await _qrCodeService.GetRewardsAsync(id);
+            return Ok(rewards);
+        }
+
+        [HttpPut("{id}/rewards")]
+        public async Task<IActionResult> UpdateRewards(
+            int id,
+            [FromBody] IReadOnlyList<QRCodeRewardDto> rewards)
+        {
+            var updated = await _qrCodeService.UpdateRewardsAsync(id, rewards);
+
+            if (!updated)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }

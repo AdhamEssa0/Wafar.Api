@@ -11,6 +11,10 @@ namespace Wafar.Domain.Entities.Coupons
         public int Id { get; set; }
         public DateTime UsageDate { get; set; } = DateTime.UtcNow;
         public string? Notes { get; set; }
+        public decimal InvoiceAmount { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal NetAmount { get; set; }
+        public string? ProductName { get; set; }
 
         public int CouponId { get; set; } // 1:1 FK (unique)
         public Coupon Coupon { get; set; } = null!;

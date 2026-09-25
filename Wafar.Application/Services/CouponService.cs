@@ -14,7 +14,8 @@ namespace Wafar.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRewardSelectionService _rewardSelectionService;
 
-        // الحروف المسموح بيها في كود الكوبون — مستبعدين منها المتشابهة بصريًا (O مع 0، I مع 1)
+        // الحروف المسموح بيها في كود الكوبون
+        // مستبعدين منها المتشابهة بصريًا (O مع 0، I مع 1)
         private const string CodeChars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
         private static readonly Random _random = new();
 
@@ -30,16 +31,23 @@ namespace Wafar.Application.Services
         public async Task<List<RewardCategoryOptionDto>> GetAvailableCategoriesAsync(string qrCode)
         {
             var qrRepo = _unitOfWork.GetRepository<QRCode>();
+
             return await qrRepo.GetAvailableCategoriesAsync(qrCode);
         }
 
         // ============ معالجة عملية المسح واختيار المكافأة ============
         public async Task<CouponResulteDto> ProcessScanAsync(
-            string qrCode, int? customerId, string? ipAddress, string? deviceInfo, int? categoryId)
+            string qrCode,
+            int? customerId,
+            string? ipAddress,
+            string? deviceInfo,
+            int? categoryId,
+            string? extraData)
         {
             var qrRepo = _unitOfWork.GetRepository<QRCode>();
 
             var isValid = await qrRepo.IsActiveAndWithinLimitsAsync(qrCode);
+
             if (!isValid)
             {
                 return new CouponResulteDto
@@ -50,6 +58,7 @@ namespace Wafar.Application.Services
             }
 
             var qr = await qrRepo.GetByCodeWithRewardsAsync(qrCode);
+
             if (qr == null || qr.QRCodeRewards.Count == 0)
             {
                 return new CouponResulteDto
@@ -59,9 +68,11 @@ namespace Wafar.Application.Services
                 };
             }
 
-            // فلترة حسب التصنيف اللي العميل اختاره في صفحة الاختيار (لو موجود)
+            // فلترة حسب التصنيف اللي العميل اختاره
             var pool = categoryId.HasValue
-                ? qr.QRCodeRewards.Where(l => l.Reward.RewardCategoryId == categoryId.Value).ToList()
+                ? qr.QRCodeRewards
+                    .Where(l => l.Reward.RewardCategoryId == categoryId.Value)
+                    .ToList()
                 : qr.QRCodeRewards;
 
             if (pool.Count == 0)
@@ -74,9 +85,11 @@ namespace Wafar.Application.Services
             }
 
             Reward selectedReward;
+
             try
             {
-                selectedReward = _rewardSelectionService.SelectRandomReward(pool);
+                selectedReward =
+                    _rewardSelectionService.SelectRandomReward(pool);
             }
             catch (InvalidOperationException ex)
             {
@@ -90,7 +103,7 @@ namespace Wafar.Application.Services
             var couponRepo = _unitOfWork.GetRepository<Coupon>();
             var scanHistoryRepo = _unitOfWork.GetRepository<ScanHistory>();
 
-            // 1) سجل الـ ScanHistory الأول — العلاقة بينه وبين الكوبون 1:1 إجبارية
+            // 1) سجل الـ ScanHistory
             var scanHistory = new ScanHistory
             {
                 QRCodeId = qr.Id,
@@ -99,27 +112,30 @@ namespace Wafar.Application.Services
                 DeviceInfo = deviceInfo,
                 ScanDate = DateTime.UtcNow
             };
+
             scanHistoryRepo.Add(scanHistory);
 
-            // 2) ولّد كود فريد — بيعيد المحاولة لو الكود موجود بالفعل
+            // 2) ولّد كود فريد
             string uniqueCode;
+
             do
             {
                 uniqueCode = GenerateCouponCode();
             }
             while (await couponRepo.ExistsWithCodeAsync(uniqueCode));
 
-            // 3) اربط الكوبون بالـ ScanHistory عن طريق الـ Navigation Property
-            //    مش عن طريق الـ Id مباشرة — عشان EF Core يظبط الترتيب لوحده وقت الحفظ
+            // 3) اربط الكوبون بالـ ScanHistory
             var coupon = new Coupon
             {
                 UniqueCode = uniqueCode,
                 Reward = selectedReward,
                 CustomerId = customerId,
                 Status = CouponStatus.Active,
-                ExpirationDate = DateTime.UtcNow.AddDays(selectedReward.ExpirationDays),
+                ExpirationDate =
+                    DateTime.UtcNow.AddDays(selectedReward.ExpirationDays),
                 ScanHistory = scanHistory
             };
+
             couponRepo.Add(coupon);
 
             await qrRepo.IncrementScanCountAsync(qr.Id);
@@ -138,11 +154,17 @@ namespace Wafar.Application.Services
 
         // ============ تفعيل الكوبون في المحل (الموظف) ============
         public async Task<CouponRedeemResultDto> RedeemCouponAsync(
-            string uniqueCode, int usedByUserId, int? branchId)
+            string uniqueCode,
+            int usedByUserId,
+            int? branchId,
+            decimal invoiceAmount,
+            string? productName)
         {
             var couponRepo = _unitOfWork.GetRepository<Coupon>();
 
-            var coupon = await couponRepo.GetByUniqueCodeAsync(uniqueCode);
+            var coupon =
+                await couponRepo.GetByUniqueCodeAsync(uniqueCode);
+
             if (coupon == null)
             {
                 return new CouponRedeemResultDto
@@ -164,7 +186,9 @@ namespace Wafar.Application.Services
             if (coupon.ExpirationDate < DateTime.UtcNow)
             {
                 coupon.Status = CouponStatus.Expired;
+
                 couponRepo.Update(coupon);
+
                 await _unitOfWork.SaveChangesAsync();
 
                 return new CouponRedeemResultDto
@@ -174,44 +198,111 @@ namespace Wafar.Application.Services
                 };
             }
 
+            // التأكد من صحة قيمة الفاتورة
+            if (invoiceAmount <= 0)
+            {
+                return new CouponRedeemResultDto
+                {
+                    Success = false,
+                    Message = "قيمة الفاتورة يجب أن تكون أكبر من صفر."
+                };
+            }
+
+            // ============ حساب الخصم ============
+            decimal discountAmount = 0;
+
+            if (coupon.Reward.RewardType == RewardType.DiscountPercentage)
+            {
+                var discountPercentage =
+                    coupon.Reward.DiscountValue ?? 0;
+
+                discountAmount =
+                    invoiceAmount * discountPercentage / 100;
+            }
+            else if (coupon.Reward.RewardType == RewardType.FixedAmountDiscount)
+            {
+                var fixedDiscount =
+                    coupon.Reward.DiscountValue ?? 0;
+
+                discountAmount = Math.Min(
+                    fixedDiscount,
+                    invoiceAmount
+                );
+            }
+
+            var netAmount =
+                invoiceAmount - discountAmount;
+
             // 1) سجّل عملية الاستخدام
-            var usageRepo = _unitOfWork.GetRepository<CouponUsage>();
+            var usageRepo =
+                _unitOfWork.GetRepository<CouponUsage>();
+
             var usage = new CouponUsage
             {
                 CouponId = coupon.Id,
                 UsedByUserId = usedByUserId,
                 BranchId = branchId,
-                UsageDate = DateTime.UtcNow
+                UsageDate = DateTime.UtcNow,
+
+                InvoiceAmount = invoiceAmount,
+                DiscountAmount = discountAmount,
+                NetAmount = netAmount,
+                ProductName = productName
             };
+
             usageRepo.Add(usage);
 
             // 2) علّم الكوبون كمستخدم
             coupon.IsUsed = true;
             coupon.Status = CouponStatus.Used;
+
             couponRepo.Update(coupon);
 
-            // 3) لو الـ QR ده مرتبط بشريك، احسب واحفظ العمولة
+            // 3) حساب العمولة الحالية
             decimal? commissionAmount = null;
 
-            var qrRepo = _unitOfWork.GetRepository<QRCode>();
-            var qr = await qrRepo.GetByIdAsync(coupon.ScanHistory.QRCodeId);
+            var qrRepo =
+                _unitOfWork.GetRepository<QRCode>();
 
-            if (qr?.PartnerId != null && qr.CommissionType != null && qr.CommissionValue != null)
+            var qr =
+                await qrRepo.GetByIdAsync(
+                    coupon.ScanHistory.QRCodeId);
+
+            if (
+                qr?.PartnerId != null &&
+                qr.CommissionType != null &&
+                qr.CommissionValue != null)
             {
-                commissionAmount = qr.CommissionType == CommissionType.Percentage
-                    ? (coupon.Reward.DiscountValue ?? 0) * qr.CommissionValue.Value / 100
-                    : qr.CommissionValue.Value;
+                commissionAmount =
+                    qr.CommissionType == CommissionType.Percentage
+                        ? invoiceAmount * qr.CommissionValue.Value / 100
+                        : qr.CommissionValue.Value;
 
-                var commissionRepo = _unitOfWork.GetRepository<Commission>();
+                var commissionRepo =
+                    _unitOfWork.GetRepository<Commission>();
+
                 commissionRepo.Add(new Commission
                 {
-                    CommissionType = qr.CommissionType.Value,
-                    CommissionValue = qr.CommissionValue.Value,
-                    CalculatedAmount = commissionAmount.Value,
-                    Status = CommissionStatus.Pending,
-                    PartnerId = qr.PartnerId.Value,
-                    QRCodeId = qr.Id,
-                    CouponId = coupon.Id
+                    CommissionType =
+                        qr.CommissionType.Value,
+
+                    CommissionValue =
+                        qr.CommissionValue.Value,
+
+                    CalculatedAmount =
+                        commissionAmount.Value,
+
+                    Status =
+                        CommissionStatus.Pending,
+
+                    PartnerId =
+                        qr.PartnerId.Value,
+
+                    QRCodeId =
+                        qr.Id,
+
+                    CouponId =
+                        coupon.Id
                 });
             }
 
@@ -222,15 +313,25 @@ namespace Wafar.Application.Services
                 Success = true,
                 Message = "تم تفعيل الكوبون بنجاح.",
                 RewardName = coupon.Reward.RewardName,
-                CommissionAmount = commissionAmount
+                CommissionAmount = commissionAmount,
+
+                InvoiceAmount = invoiceAmount,
+                DiscountAmount = discountAmount,
+                NetAmount = netAmount,
+
+                ProductName = productName
             };
         }
 
         private static string GenerateCouponCode()
         {
             var chars = new char[8];
+
             for (var i = 0; i < 8; i++)
-                chars[i] = CodeChars[_random.Next(CodeChars.Length)];
+            {
+                chars[i] =
+                    CodeChars[_random.Next(CodeChars.Length)];
+            }
 
             return new string(chars);
         }
@@ -239,7 +340,8 @@ namespace Wafar.Application.Services
         {
             var couponRepo = _unitOfWork.CouponRepository;
 
-            var coupons = await couponRepo.GetAllWithDetailsAsync();
+            var coupons =
+                await couponRepo.GetAllWithDetailsAsync();
 
             return coupons.Select(c => new CouponListDto
             {
@@ -253,7 +355,8 @@ namespace Wafar.Application.Services
                 CustomerName = c.Customer?.FullName,
                 UsageDate = c.CouponUsage?.UsageDate,
                 UsedByUserId = c.CouponUsage?.UsedByUserId,
-                UsedByUserName = c.CouponUsage?.UsedByUser?.FullName,
+                UsedByUserName =
+                    c.CouponUsage?.UsedByUser?.FullName,
                 BranchId = c.CouponUsage?.BranchId
             }).ToList();
         }

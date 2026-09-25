@@ -21,7 +21,7 @@ namespace Wafar.Api.Controllers
         {
             var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
             var deviceInfo = Request.Headers.UserAgent.ToString();
-            var result = await _couponService.ProcessScanAsync(qrCode, customerId, ipAddress, deviceInfo, categoryId);
+            var result = await _couponService.ProcessScanAsync(qrCode, customerId, ipAddress, deviceInfo, categoryId, null);
             return Ok(result);
         }
 

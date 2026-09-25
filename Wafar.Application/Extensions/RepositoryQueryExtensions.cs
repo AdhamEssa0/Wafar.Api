@@ -13,9 +13,12 @@ namespace Wafar.Application.Extensions
         public static async Task<bool> IsActiveAndWithinLimitsAsync(
             this IGenericRepository<QRCode> repo, string code)
         {
-            var qr = await repo.Query().SingleOrDefaultAsync(q => q.Code == code);
-            return qr != null && qr.IsActive
-                && (qr.ScanLimit == null || qr.CurrentScanCount < qr.ScanLimit)
+            var qr = await repo.Query()
+                .SingleOrDefaultAsync(q => q.Code == code);
+
+            return qr != null
+                && qr.IsActive
+                && (qr.ScanLimit == null || qr.ScanLimit == 0 || qr.CurrentScanCount < qr.ScanLimit)
                 && qr.StartDate <= DateTime.UtcNow
                 && (qr.EndDate == null || qr.EndDate >= DateTime.UtcNow);
         }

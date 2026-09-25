@@ -1,7 +1,9 @@
-﻿using Wafar.Application.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
+using Wafar.Application.DTOs;
 using Wafar.Application.Interfaces;
 using Wafar.Domain.Contracts;
 using Wafar.Domain.Entities.Qr;
+using Wafar.Domain.Entities.Rewards;
 
 namespace Wafar.Application.Services
 {
@@ -28,6 +30,57 @@ namespace Wafar.Application.Services
             return qr == null ? null : ToDto(qr);
         }
 
+        public async Task<IReadOnlyList<QRCodeRewardDto>> GetRewardsAsync(int qrCodeId)
+        {
+            var qrRewardRepo = _unitOfWork.GetRepository<QRCodeReward>();
+
+            var qrRewards = await qrRewardRepo.Query()
+                .Where(x => x.QRCodeId == qrCodeId)
+                .Select(x => new QRCodeRewardDto
+                {
+                    RewardId = x.RewardId,
+                    ProbabilityOverride = x.ProbabilityOverride
+                })
+                .ToListAsync();
+
+            return qrRewards;
+        }
+
+        public async Task<bool> UpdateRewardsAsync(
+            int qrCodeId,
+            IReadOnlyList<QRCodeRewardDto> rewards)
+        {
+            var qrRepo = _unitOfWork.GetRepository<QRCode>();
+            var qr = await qrRepo.GetByIdAsync(qrCodeId);
+
+            if (qr == null)
+                return false;
+
+            var qrRewardRepo = _unitOfWork.GetRepository<QRCodeReward>();
+
+            var existingRewards = await qrRewardRepo.Query()
+                .Where(x => x.QRCodeId == qrCodeId)
+                .ToListAsync();
+
+            foreach (var existing in existingRewards)
+            {
+                qrRewardRepo.Remove(existing);
+            }
+
+            foreach (var reward in rewards)
+            {
+                qrRewardRepo.Add(new QRCodeReward
+                {
+                    QRCodeId = qrCodeId,
+                    RewardId = reward.RewardId,
+                    ProbabilityOverride = reward.ProbabilityOverride
+                });
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return true;
+        }
         public async Task<QRCodeDto> CreateAsync(CreateQRCodeDto dto)
         {
             var repo = _unitOfWork.GetRepository<QRCode>();

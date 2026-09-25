@@ -40,6 +40,7 @@ namespace Wafar.Application.Services
                 FullName = dto.FullName,
                 Phone = dto.Phone,
                 Email = dto.Email,
+                Address = dto.Address,
                 CommissionType = Enum.Parse<CommissionType>(dto.CommissionType),
                 DefaultCommissionValue = dto.DefaultCommissionValue,
                 IsActive = true
@@ -60,6 +61,7 @@ namespace Wafar.Application.Services
             partner.FullName = dto.FullName;
             partner.Phone = dto.Phone;
             partner.Email = dto.Email;
+            partner.Address = dto.Address;
             partner.CommissionType = Enum.Parse<CommissionType>(dto.CommissionType);
             partner.DefaultCommissionValue = dto.DefaultCommissionValue;
             partner.IsActive = dto.IsActive;
@@ -111,6 +113,7 @@ namespace Wafar.Application.Services
             FullName = p.FullName,
             Phone = p.Phone,
             Email = p.Email,
+            Address = p.Address,
             CommissionType = p.CommissionType.ToString(),
             DefaultCommissionValue = p.DefaultCommissionValue,
             IsActive = p.IsActive

@@ -12,5 +12,9 @@ namespace Wafar.Application.DTOs
         public string? Message { get; set; }
         public string? RewardName { get; set; }
         public decimal? CommissionAmount { get; set; }
+        public decimal? InvoiceAmount { get; set; }
+        public decimal? DiscountAmount { get; set; }
+        public decimal? NetAmount { get; set; }
+        public string? ProductName { get; set; }
     }
 }

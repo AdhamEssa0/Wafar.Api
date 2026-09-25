@@ -28,22 +28,26 @@ namespace Wafar.Api.Controllers
         [HttpPost("redeem")]
         public async Task<IActionResult> Redeem(
             [FromQuery] string uniqueCode,
-            [FromQuery] int? branchId)
-                {
-                    var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            [FromQuery] int? branchId,
+            [FromQuery] decimal invoiceAmount,
+            [FromQuery] string? productName)
+        {
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                    if (!int.TryParse(userIdClaim, out var usedByUserId))
-                        return Unauthorized();
+            if (!int.TryParse(userIdClaim, out var usedByUserId))
+                return Unauthorized();
 
-                    var result = await _couponService.RedeemCouponAsync(
-                        uniqueCode,
-                        usedByUserId,
-                        branchId);
+            var result = await _couponService.RedeemCouponAsync(
+                uniqueCode,
+                usedByUserId,
+                branchId,
+                invoiceAmount,
+                productName);
 
-                    if (!result.Success)
-                        return BadRequest(result);
+            if (!result.Success)
+                return BadRequest(result);
 
-                    return Ok(result);
-                }
+            return Ok(result);
+        }
     }
 }

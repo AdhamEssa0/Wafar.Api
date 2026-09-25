@@ -7,7 +7,6 @@ using Wafar.Api.BackgroundJobs;
 using Wafar.Application.Interfaces;
 using Wafar.Application.Services;
 using Wafar.Domain.Contracts;
-using Wafar.Domain.Interface;
 using Wafar.Infrastructure.Migrations.Data.Migration;
 using Wafar.Infrastructure.Repositories;
 
@@ -36,7 +35,33 @@ builder.Services.AddHostedService<CouponExpiryWorker>();
 // ============ Controllers + Swagger ============
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Description = "أدخل الـ JWT Token هنا"
+    });
+
+    options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 // ============ CORS ============
 var allowedOrigins = builder.Configuration

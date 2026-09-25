@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wafar.Application.DTOs
+﻿namespace Wafar.Application.DTOs
 {
     public class PartnerDto
     {
@@ -12,6 +6,7 @@ namespace Wafar.Application.DTOs
         public string FullName { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public string? Email { get; set; }
+        public string? Address { get; set; }
         public string CommissionType { get; set; } = null!;
         public decimal DefaultCommissionValue { get; set; }
         public bool IsActive { get; set; }
@@ -22,6 +17,7 @@ namespace Wafar.Application.DTOs
         public string FullName { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public string? Email { get; set; }
+        public string? Address { get; set; }
         public string CommissionType { get; set; } = null!;
         public decimal DefaultCommissionValue { get; set; }
     }
@@ -31,6 +27,7 @@ namespace Wafar.Application.DTOs
         public string FullName { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public string? Email { get; set; }
+        public string? Address { get; set; }
         public string CommissionType { get; set; } = null!;
         public decimal DefaultCommissionValue { get; set; }
         public bool IsActive { get; set; }
